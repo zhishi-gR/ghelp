@@ -1,0 +1,47 @@
+Package: ghelp
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    set,
+    do,
+    haven,
+    xml2,
+    rvest,
+    expss,
+    tmcn,
+    stringr,
+    crayon,
+    data.table,
+    tools,
+    kableExtra,
+    foreign,
+    DBI,
+    dplyr (>= 1.1.0),
+    clipr,
+    RPostgreSQL,
+    mice,
+    readr,
+    cli,
+    pdftools,
+    mdbr,
+    janitor,
+    rlang (>= 1.0.5),
+    survival,
+    survey,
+    rstudioapi,
+    ggplot2,
+    WeightedROC,
+    kit,
+    rms,
+    ggrepel,
+    openxlsx,
+    mitools
