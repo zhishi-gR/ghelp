@@ -49,10 +49,58 @@ install_gR <- function(token){
     (desc <- paste0(main,'/gR'))
     check_package(desc)
 
+    # 检查是否安装了gR，把data拷贝过来
+    gf <- paste0(.libPaths(),'/gR')
+    gf <- gf[file.exists(gf)]
+    copydata <- F
+    if (length(gf)>0){
+        (gf <- gf[1])
+        (gfs <- paste0(gf,'/data'))
+        if (file.exists(gfs) & length(list.files(gfs))>0){
+            (todata <- paste0(do::file.dir(gR[k]),'/data'))
+            copy_with_structure(gfs,todata)
+            copydata <- T
+        }
+    }
+
     install.packages(pkgs = gR[k],repos = NULL,quiet = FALSE)
+    if (copydata){
+        copy_with_structure(todata,gfs)
+    }
+
+
     message('Done(gR)')
     x <- suppressWarnings(file.remove(list.files(dest,recursive = TRUE,full.names = TRUE)))
     invisible()
 }
 
+copy_with_structure <- function(src_dir, dest_dir) {
+    # 获取所有的文件路径
+    files <- list.files(src_dir, recursive = TRUE, full.names = TRUE)
+
+    # 遍历每个文件
+    for (file in files) {
+        # 获取相对于源目录的相对路径
+        relative_path <- sub(paste0("^", normalizePath(src_dir), "/"), "", normalizePath(file))
+
+        # 目标文件的完整路径
+        target_file <- file.path(dest_dir, relative_path)
+
+        # 获取目标文件夹路径
+        target_dir <- dirname(target_file)
+
+        # 如果目标文件夹不存在，创建它
+        if (!dir.exists(target_dir)) {
+            dir.create(target_dir, recursive = TRUE)
+        }
+
+        # 复制文件到目标路径
+        file.copy(file, target_file)
+    }
+}
+
+# # 使用示例
+# src_dir <- "path/to/source/directory"
+# dest_dir <- "path/to/destination/directory"
+# copy_with_structure(src_dir, dest_dir)
 
