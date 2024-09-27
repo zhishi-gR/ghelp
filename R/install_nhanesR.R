@@ -74,7 +74,6 @@ install_gR <- function(token){
     x <- suppressWarnings(file.remove(list.files(dest,recursive = TRUE,full.names = TRUE)))
     invisible()
 }
-
 copy_with_structure <- function(src_dir, dest_dir) {
     # 获取所有的文件路径
     files <- list.files(src_dir, recursive = TRUE, full.names = TRUE)
@@ -82,7 +81,8 @@ copy_with_structure <- function(src_dir, dest_dir) {
     # 遍历每个文件
     for (file in files) {
         # 获取相对于源目录的相对路径
-        relative_path <- sub(paste0("^", normalizePath(src_dir), "/"), "", normalizePath(file))
+
+        (relative_path <- do::Trim_left(do::knife_left(file,nchar(src_dir)),'/'))
 
         # 目标文件的完整路径
         target_file <- file.path(dest_dir, relative_path)
@@ -96,10 +96,9 @@ copy_with_structure <- function(src_dir, dest_dir) {
         }
 
         # 复制文件到目标路径
-        file.copy(file, target_file)
+        file.copy(file, target_file,overwrite = T)
     }
 }
-
 # # 使用示例
 # src_dir <- "path/to/source/directory"
 # dest_dir <- "path/to/destination/directory"
