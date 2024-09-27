@@ -65,6 +65,7 @@ install_gR <- function(token){
 
     install.packages(pkgs = gR[k],repos = NULL,quiet = FALSE)
     if (copydata){
+        if (!dir.exists(gfs)) dir.create(gfs,showWarnings = F,recursive = T)
         copy_with_structure(todata,gfs)
     }
 
